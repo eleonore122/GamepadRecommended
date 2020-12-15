@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/scripts/bg_process/Mainscn.gd" type="Script" id=1]
+
+[node name="LoadManager" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Progress" type="ProgressBar" parent="."]
+visible = false
+anchor_left = 7.0
+anchor_top = 8.0
+anchor_right = 207.0
+anchor_bottom = 22.0
+margin_left = 7.0
+margin_top = 8.0
+margin_right = 207.0
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

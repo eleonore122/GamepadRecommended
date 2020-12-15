@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/radial_piece_clickMask.bmp-e1526840e3cdb213e52a0d7d5bc3545a.res"
+
+[deps]
+
+source_file="res://assets/gra/UI/radial/radial_piece_clickMask.bmp"
+dest_files=[ "res://.import/radial_piece_clickMask.bmp-e1526840e3cdb213e52a0d7d5bc3545a.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5
