@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 signal grounded_updated
-signal dead
 
 const UP = Vector2(0, -1)
 
@@ -9,9 +8,7 @@ onready var dangers
 onready var scene
 onready var state_label = $state_label
 onready var time_slow_cooldown = $time_slow_cooldown
-onready var jump_buffer = $Node2D/jump_buffer
 onready var coyote_timer = $Node2D/coyote_timer
-onready var floating_timer = $floating_timer
 onready var float_bar = $float_bar
 onready var time_bar = $time_bar
 onready var FSM_node = $Node2D
@@ -19,6 +16,11 @@ onready var camera = $Camera2D
 onready var time_bar_hide = $time_bar_hide
 onready var float_bar_hide = $float_bar_hide
 onready var tween = $Tween
+onready var animation_sprite = $AnimatedSprite
+
+var pauseMenu : PackedScene
+var can_pause = true
+onready var pause_cd = $Node2D/pause_cd
 
 var move_speed = 5 * 64 #64 is the tile size
 var dash_speed = 7 * 64
@@ -38,15 +40,16 @@ var is_dashing = false
 var time_slowed = false
 
 var velocity = Vector2()
-var facing = 1
-var last_facing = 1
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	#dangers = get_parent().get_parent().get_node("TileMap").get_node("dangers")
+	dangers = get_parent().get_node("dangers")
 	scene = get_parent()
+	pauseMenu = load("res://assets/scenes/UI/pauseMenu.tscn")
+
 	
 	camera.limit_right = scene.camera_limits.right
 	camera.limit_top = scene.camera_limits.top
@@ -58,19 +61,14 @@ func _ready():
 	set_safe_margin(0.004)
 	
 	#set spawn point
-	#position = scene.spawn_point
-	
-	#set resource bars to hidden
+	position = scene.spawn_point
 	
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
 	max_jump_velocity = -sqrt(2 * gravity * max_jump_height)
 	min_jump_velocity = -sqrt(2 * gravity * min_jump_height)
-	
 
 
-
-
-func _physics_process(delta):
+func _physics_process(_delta):
 	var collision = move_and_collide(Vector2(0, 1), true, true, true)
 	var collision_ceiling = move_and_collide(Vector2(0, -1), true, true, true)
 	if collision && !is_dead:
@@ -78,11 +76,10 @@ func _physics_process(delta):
 	elif collision_ceiling && !is_dead:
 		death_collision(collision_ceiling)
 		
-		
 	if !coyote_timer.is_stopped() && Input.is_action_just_pressed("jump"):
 		jump()
 	
-	if Input.is_action_pressed("floating") && float_bar.value > 0:
+	if Input.is_action_pressed("floating") && float_bar.value > 0 && !is_on_floor():
 		float_bar.value -= 1
 		float_bar.modulate.a = 1
 	elif Input.is_action_just_released("floating") || float_bar.value == 0:
@@ -99,6 +96,15 @@ func _physics_process(delta):
 		time_slowed = false
 		time_slow_cooldown.start()
 		Engine.set_time_scale(1)
+	if Input.is_action_just_pressed("pause") && can_pause:
+		pause_menu()
+	update_facing()
+
+func pause_menu():
+	var pause_panel = pauseMenu.instance()
+	can_pause = false
+	$pause_layer.add_child(pause_panel)
+
 
 
 func apply_gravity(delta):
@@ -115,7 +121,6 @@ func apply_movement():
 	if is_jumping && velocity.y >= 0:
 		is_jumping = false
 
-	var was_on_floor = is_on_floor()
 	#snap to floor if not jumping
 	var snap = Vector2.DOWN * 32 if !is_jumping else Vector2.ZERO
 	
@@ -137,14 +142,18 @@ func get_move_input():
 	else:
 		var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
 		velocity.x = dash_speed * move_direction
-	if velocity.x > 0:
-		facing = 1
-		last_facing = 1
-	elif velocity.x < 0:
-		facing = -1
-		last_facing = -1
-	elif velocity.x == 0:
-		facing = last_facing
+		
+
+func update_facing():
+	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
+	if move_direction == -1:
+		$AnimatedSprite.flip_h = true
+	elif move_direction == 1:
+		$AnimatedSprite.flip_h = false
+
+
+
+
 	
 func jump():
 	if is_on_floor() || !coyote_timer.is_stopped():
@@ -154,9 +163,6 @@ func jump():
 func floating():
 	is_dashing = true
 	velocity.y += 35
-
-	
-	
 
 func death_collision(node):
 	var collider = node.get_collider()
@@ -204,3 +210,13 @@ func tween_hide_resource(bar):
 		if !FSM_node.is_floating:
 			tween.interpolate_property(bar, "modulate", Color.white ,Color.transparent, 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			tween.start()
+
+
+func _on_danger_detect_body_entered(body):
+	if body.is_in_group("dangers"):
+		is_dead = true
+		death()
+
+
+func _on_pause_cd_timeout():
+	can_pause = true

@@ -8,8 +8,11 @@ var velocity = Vector2()
 
 var collision_direction = Vector2()
 
+func _ready():
+	var parent = get_parent()
+	arrow_direction = parent.launch_direction
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	#remember to write code for arrow direction
 	collision_direction.x = arrow_direction
 	#arrow movement

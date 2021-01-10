@@ -4,7 +4,8 @@ const SIMULATED_DELAY_SEC = 0.1
 
 var thread = null
 
-onready var progress = $Progress
+onready var progress = $CanvasLayer/Progress
+
 
 func _thread_load(path):
 	var ril = ResourceLoader.load_interactive(path)
@@ -49,6 +50,7 @@ func _thread_done(resource):
 	var new_scene = resource.instance()
 	# Free current scene.
 	get_tree().current_scene.free()
+	get_tree().paused = false
 	get_tree().current_scene = null
 	# Add new one to root.
 	get_tree().root.add_child(new_scene)
@@ -62,3 +64,4 @@ func load_scene(path):
 	thread.start( self, "_thread_load", path)
 	raise() # Show on top.
 	progress.visible = true
+

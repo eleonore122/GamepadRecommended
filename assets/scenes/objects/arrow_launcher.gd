@@ -5,18 +5,19 @@ extends Node2D
 onready var launch_timer = $arrow_CD
 var arrow : PackedScene
 
+var launch_direction = 1 #default to right
+ 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	arrow = load("res://assets/scenes/objects/arrow.tscn") as PackedScene
+	
+	if scale.x == -1:
+		launch_direction = -1
 	launch_timer.start()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_arrow_CD_timeout():
 	var new_arrow = arrow.instance()
 	add_child(new_arrow)
 	launch_timer.start()
+

@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/scripts/UI/optionsPanel.gd" type="Script" id=1]
+
+[node name="optionsPanel" type="Panel"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -200.0
+margin_right = 400.0
+margin_bottom = 200.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="save_options" type="Button" parent="."]
+margin_left = 215.0
+margin_top = 375.0
+margin_right = 310.0
+margin_bottom = 395.0
+focus_neighbour_left = NodePath("../close_options")
+focus_neighbour_top = NodePath("../HBoxContainer/buttons/vsync")
+focus_neighbour_right = NodePath("../close_options")
+focus_neighbour_bottom = NodePath("../HBoxContainer/buttons/windowMode")
+text = "Save & Apply"
+
+[node name="close_options" type="Button" parent="."]
+margin_left = 485.0
+margin_top = 375.0
+margin_right = 580.0
+margin_bottom = 395.0
+focus_neighbour_left = NodePath("../save_options")
+focus_neighbour_top = NodePath("../HBoxContainer/buttons/vsync")
+focus_neighbour_right = NodePath("../save_options")
+focus_neighbour_bottom = NodePath("../HBoxContainer/buttons/windowMode")
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 200.0
+margin_top = 100.0
+margin_right = 600.0
+margin_bottom = 300.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labels" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 105.0
+margin_right = 196.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="windowMode" type="Label" parent="HBoxContainer/labels"]
+margin_top = 84.0
+margin_right = 91.0
+margin_bottom = 98.0
+text = "Window Mode"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vsync" type="Label" parent="HBoxContainer/labels"]
+margin_top = 102.0
+margin_right = 91.0
+margin_bottom = 116.0
+text = "Vsync"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buttons" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 200.0
+margin_right = 295.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="windowMode" type="OptionButton" parent="HBoxContainer/buttons"]
+margin_top = 78.0
+margin_right = 95.0
+margin_bottom = 98.0
+focus_neighbour_top = NodePath("../../../save_options")
+focus_neighbour_bottom = NodePath("../vsync")
+text = "Fullscreen"
+items = [ "Fullscreen", null, false, 0, null, "Windowed", null, false, 1, null ]
+selected = 0
+
+[node name="vsync" type="OptionButton" parent="HBoxContainer/buttons"]
+margin_top = 102.0
+margin_right = 95.0
+margin_bottom = 122.0
+focus_neighbour_top = NodePath("../windowMode")
+focus_neighbour_bottom = NodePath("../../../save_options")
+text = "Yes"
+items = [ "Yes", null, false, 0, null, "No", null, false, 1, null ]
+selected = 0

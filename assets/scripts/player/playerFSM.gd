@@ -1,13 +1,13 @@
 extends StateMachine
 
-onready var jump_buffer = $jump_buffer
 var is_floating = false
 var jump_counter = 2
+var facing = 1
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if [states.fall].has(state):
-		if Input.is_action_just_pressed("floating") && parent.float_bar.value:
+		if Input.is_action_pressed("floating") && parent.float_bar.value:
 			parent.velocity.y = 0
 			parent.floating()
 			is_floating = true
@@ -25,6 +25,7 @@ func _physics_process(delta):
 			parent.velocity.y = 0
 			is_floating = true
 			parent.floating()
+			
 
 
 func _input(event):
@@ -34,8 +35,6 @@ func _input(event):
 			if parent.is_on_floor():
 				parent.jump()
 				jump_counter -= 1
-			else:
-				jump_buffer.start()
 
 			#smaller jumps here
 	if state == states.jump:
@@ -56,7 +55,7 @@ func state_logic(delta):
 		parent.apply_gravity(delta) 
 	parent.apply_movement()
 
-func get_transition(delta):
+func get_transition(_delta):
 	match state:
 		states.idle:
 			if !parent.is_on_floor():
@@ -103,22 +102,22 @@ func get_transition(delta):
 			elif parent.is_jumping:
 				return states.jump
 		
-func enter_state(new_state, old_state):
+func enter_state(new_state, _old_state):
 	if new_state == states.idle:
 		parent.state_label.text = "idle"
+		parent.animation_sprite.play("idle")
 	if new_state == states.run:
 		parent.state_label.text = "run"
+		parent.animation_sprite.play("idle")
 	if new_state == states.fall:
 		parent.state_label.text = "fall"
+		parent.animation_sprite.play("in_air")
 	if new_state == states.jump:
 		parent.state_label.text = "jump"
+		parent.animation_sprite.play("jump")
 	if new_state == states.floating:
 		parent.state_label.text = "floating"
+		parent.animation_sprite.play("in_air")
+
+func exit_state(_old_state, _new_state):
 	pass
-
-func exit_state(old_state, new_state):
-	pass
-
-
-func _on_jump_buffer_timeout():
-	parent.jump()
