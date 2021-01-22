@@ -11,6 +11,7 @@ var collision_direction = Vector2()
 func _ready():
 	var parent = get_parent()
 	arrow_direction = parent.launch_direction
+	position = parent.spawn_point.position
 
 func _physics_process(_delta):
 	#remember to write code for arrow direction
@@ -27,5 +28,5 @@ func _physics_process(_delta):
 
 func handle_collision(node):
 	var collider = node.get_collider()
-	if collider is TileMap:
+	if collider is TileMap || collider.is_in_group("dangers"):
 		queue_free()

@@ -117,7 +117,7 @@ func enter_state(new_state, _old_state):
 		parent.animation_sprite.play("jump")
 	if new_state == states.floating:
 		parent.state_label.text = "floating"
-		parent.animation_sprite.play("in_air")
+		parent.animation_sprite.play("floating")
 
 func exit_state(_old_state, _new_state):
 	pass

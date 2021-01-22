@@ -27,7 +27,7 @@ var dash_speed = 7 * 64
 
 var max_jump_velocity
 var min_jump_velocity
-var max_jump_height = (3.25 * 64)
+var max_jump_height = (3.35 * 64)
 var min_jump_height = (0.8 * 64)
 var jump_duration = 0.5
 var gravity

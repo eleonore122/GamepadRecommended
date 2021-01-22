@@ -18,5 +18,9 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="arrow_CD" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
+
+[node name="arrow_spawn" type="Node2D" parent="."]
+position = Vector2( 25, -3 )
 [connection signal="timeout" from="arrow_CD" to="." method="_on_arrow_CD_timeout"]

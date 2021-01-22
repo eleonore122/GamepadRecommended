@@ -1,6 +1,5 @@
 extends Control
 
-
 onready var level_name_label = $CanvasLayer/PanelContainer/VBoxContainer/level_name
 onready var time_label = $CanvasLayer/PanelContainer/VBoxContainer/time_elapsed
 onready var death_label = $CanvasLayer/PanelContainer/VBoxContainer/deathCount
@@ -16,11 +15,13 @@ func _ready():
 	parent = get_parent()
 	get_tree().paused = true
 	
+	btn_nextLevel.grab_focus()
+	
 	
 
 func set_text(level_name_text, time_text, deathCount_text):
 	level_name_label.text = level_name_text
-	time_label.text = "Time Elapsed(in seconds) = " + time_text
+	time_label.text = "Time Elapsed (in seconds) = " + time_text
 	death_label.text = "Number of Deaths = " + deathCount_text
 	show()
 

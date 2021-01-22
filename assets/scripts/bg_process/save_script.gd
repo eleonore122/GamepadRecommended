@@ -8,7 +8,9 @@ var level_started = ""
 var level_paths = {
 	"tut_level" : "res://assets/scenes/levels/tutorial_level.tscn",
 	"level_one" : "res://assets/scenes/levels/level_one.tscn",
-	"level_two" : "res://assets/scenes/levels/level_two.tscn"
+	"level_two" : "res://assets/scenes/levels/level_two.tscn",
+	"level_three" : "res://assets/scenes/levels/level_three.tscn",
+	"level_four" : "res://assets/scenes/levels/level_four.tscn"
 }
 
 
@@ -30,7 +32,7 @@ func save_game(level_began):
 func load_save():
 	var save_game = File.new()
 	if not save_game.file_exists(save_path):
-		return #no file to load, should not be called
+		return #no file to load, shouldn't happen really
 	
 	#get save data
 	save_game.open(save_path, File.READ)

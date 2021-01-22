@@ -9,8 +9,8 @@ onready var btn_Quit = $PanelContainer/VBoxContainer/Control/VBoxContainer/btn_Q
 
 onready var quit_confirm = $ConfirmationDialog
 onready var option_panel = $optionsPanel
-onready var windowMode_drop = $optionsPanel/HBoxContainer/buttons/windowMode
-onready var vsync_drop = $optionsPanel/HBoxContainer/buttons/vsync
+onready var windowMode_drop = $optionsPanel/options_page/HBoxContainer/buttons/windowMode
+onready var vsync_drop = $optionsPanel/options_page/HBoxContainer/buttons/vsync
 
 var save_exists = false
 var tutorial_path = "res://assets/scenes/levels/tutorial_level.tscn"

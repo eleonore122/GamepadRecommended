@@ -1,5 +1,7 @@
 extends Node2D
 
+enum ACTIONS {jump, floating, time_slow, move_left, move_right}
+
 signal level_complete
 
 onready var win_timer = $win_timer
@@ -17,6 +19,9 @@ var winPanel_scene : PackedScene
 var death_count = 0
 var time_elapsed = 0.00
 
+var jump_input_string  = "Space"
+var floating_input_string = "J"
+var time_slow_input_string = "L"
 
 # Declare member variables here. Examples:
 var camera_limits = {
@@ -70,9 +75,25 @@ func back_to_menu():
 func _input(event: InputEvent):
 	if death_count == 0:
 		if event is InputEventKey:
-			jump_label.text = "Hi There! You're a little man on an Adventure! \n \nPress Space to Jump!"
-			float_label.text = "Uh Oh! Watch out for the spikes and arrows! \n \nPress J to float across safely"
-			time_label.text = "Things are looking pretty sticky... \nI would take my time, \nand think about how to get through \n \nPress L to slow things down"
+			for i in ACTIONS:
+				if i == "jump":
+					var input_map = InputMap.get_action_list(i)
+					for x in input_map:
+						if x is InputEventKey:
+							jump_input_string = x.as_text()
+				elif i == "floating":
+					var input_map = InputMap.get_action_list(i)
+					for x in input_map:
+						if x is InputEventKey:
+							floating_input_string = x.as_text()
+				if i == "time_slow":
+					var input_map = InputMap.get_action_list(i)
+					for x in input_map:
+						if x is InputEventKey:
+							time_slow_input_string = x.as_text()
+			jump_label.text = "Hi There! You're a little man on an Adventure! \n \nPress " + jump_input_string + " to Jump!"
+			float_label.text = "Uh Oh! Watch out for the spikes and arrows! \n \nPress " + floating_input_string + " to float across safely"
+			time_label.text = "Things are looking pretty sticky... \nI would take my time, \nand think about how to get through \n \nPress " + time_slow_input_string + " to slow things down"
 		
 		elif event is InputEventJoypadButton || InputEventJoypadMotion:
 			jump_label.text = "Hi There! You're a little man on an Adventure! \n \nPress X to Jump!"
@@ -81,8 +102,8 @@ func _input(event: InputEvent):
 	if death_count > 0:
 		if event is InputEventKey:
 			jump_label.text = "Oh Dear!! Well you'll just have to try again. \n \n And remember to Jump!"
-			float_label.text = "Uh Oh! Watch out for the spikes and arrows! \n \nPress J to float across safely"
-			time_label.text = "Things are looking pretty sticky... \nI would take my time, \nand think about how to get through \n \nPress L to slow things down"
+			float_label.text = "Uh Oh! Watch out for the spikes and arrows! \n \nPress " + floating_input_string + " to float across safely"
+			time_label.text = "Things are looking pretty sticky... \nI would take my time, \nand think about how to get through \n \nPress " + time_slow_input_string + " to slow things down"
 		
 		elif event is InputEventJoypadButton || InputEventJoypadMotion:
 			jump_label.text = "Oh Dear!! Well you'll just have to try again. \n \n And remember to Jump!"

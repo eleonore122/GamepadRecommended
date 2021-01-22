@@ -13,7 +13,7 @@ var time_elapsed = 0.00
 var jokeSpotted = false
 
 var player_scene : PackedScene
-var next_level_scene = "res://assets/scenes/levels/tutorial_level.tscn"
+var next_level_scene = "res://assets/scenes/levels/level_three.tscn"
 
 # Declare member variables here. Examples:
 var camera_limits = {
@@ -64,15 +64,19 @@ func _on_win_timer_timeout():
 	winPanel_scene = load("res://assets/scenes/UI/winPanel.tscn") as PackedScene
 	var win_panel = winPanel_scene.instance()
 	add_child(win_panel)
-	win_panel.set_text("Tutorial", String(time_elapsed), String(death_count))
+	win_panel.set_text("Level Two", String(time_elapsed), String(death_count))
 
 func load_next_level():
 	LoadManager.load_scene(next_level_scene)
 
 func back_to_menu():
-	SaveScript.save_game("tut_level")
+	SaveScript.save_game("level_three")
 	LoadManager.load_scene("res://assets/scenes/UI/MainMenu.tscn")
 
 func _on_squeeze_joke_seen_body_entered(body):
 	if body == player:
 		squeeze_joke_seen = true
+
+
+func _on_checkpoint_body_entered(body):
+	spawn_point = Vector2(6530,3021)

@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/gra/player/jump_down.png" type="Texture" id=1]
 [ext_resource path="res://assets/scripts/player/player_script.gd" type="Script" id=2]
 [ext_resource path="res://assets/scripts/player/playerFSM.gd" type="Script" id=3]
 [ext_resource path="res://assets/gra/player/Mid_Jump.png" type="Texture" id=4]
 [ext_resource path="res://assets/gra/player/idle.png" type="Texture" id=5]
+[ext_resource path="res://assets/gra/player/hat_open.png" type="Texture" id=6]
+[ext_resource path="res://assets/gra/player/floating.png" type="Texture" id=7]
+[ext_resource path="res://assets/gra/player/umbrella_up.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -17,6 +20,11 @@ animations = [ {
 "loop": false,
 "name": "jump",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ],
+"loop": false,
+"name": "floating",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
@@ -38,14 +46,18 @@ bg_color = Color( 0, 0.54902, 0.329412, 1 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 18, 33 )
 
-[node name="player" type="KinematicBody2D"]
+[node name="player" type="KinematicBody2D" groups=[
+"player",
+]]
 collision_mask = 15
 collision/safe_margin = 0.03
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "jump"
+animation = "floating"
+frame = 3
+playing = true
 
 [node name="state_label" type="Label" parent="."]
 visible = false
