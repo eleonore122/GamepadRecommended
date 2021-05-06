@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://assets/scripts/bg_process/level_path_holder_class.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+player_name = "player 1"
+level_paths = {
+"level five": "res://assets/scenes/levels/level_five.tscn",
+"level four": "res://assets/scenes/levels/level_four.tscn",
+"level one": "res://assets/scenes/levels/level_one.tscn",
+"level seven": "res://assets/scenes/levels/level_seven.tscn",
+"level six": "res://assets/scenes/levels/level_six.tscn",
+"level three": "res://assets/scenes/levels/level_three.tscn",
+"level two": "res://assets/scenes/levels/level_two.tscn",
+"tutorial": "res://assets/scenes/levels/tutorial_level.tscn"
+}
+screenshot_paths = {
+"level five": "res://assets/gra/level_screencaps/level_5.PNG",
+"level four": "res://assets/gra/level_screencaps/level_4.png",
+"level one": "res://assets/gra/level_screencaps/level_1.png",
+"level seven": "res://assets/gra/level_screencaps/level_7.png",
+"level six": "res://assets/gra/level_screencaps/level_6.png",
+"level three": "res://assets/gra/level_screencaps/level_3.png",
+"level two": "res://assets/gra/level_screencaps/level_2.png",
+"tutorial": "res://assets/gra/level_screencaps/tut_level.png"
+}

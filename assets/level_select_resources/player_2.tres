@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://assets/scripts/bg_process/level_path_holder_class.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+player_name = "player 2"
+level_paths = {
+"tutorial": "res://assets/scenes/levels/player_2/tutorial.tscn"
+}
+screenshot_paths = {
+"tutorial": "res://assets/gra/level_screencaps/player_2/tut_level.png"
+}
