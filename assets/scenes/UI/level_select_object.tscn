@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/scripts/UI/level_select_object.gd" type="Script" id=1]
+[ext_resource path="res://assets/gra/icons/pointer.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+
+[node name="level_select_object" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -960.0
+margin_top = -540.0
+margin_right = -760.0
+margin_bottom = -340.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -105.0
+margin_top = -105.0
+margin_right = 105.0
+margin_bottom = 105.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pointer" type="TextureRect" parent="Panel"]
+visible = false
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -32.0
+margin_bottom = 32.0
+texture = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 14.0
+text = "level_name"
+align = 1
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 200.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+
+[connection signal="focus_entered" from="VBoxContainer/TextureButton" to="." method="_on_TextureButton_focus_entered"]
+[connection signal="focus_exited" from="VBoxContainer/TextureButton" to="." method="_on_TextureButton_focus_exited"]

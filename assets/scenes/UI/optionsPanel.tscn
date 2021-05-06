@@ -1,0 +1,392 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/scripts/UI/optionsPanel.gd" type="Script" id=1]
+[ext_resource path="res://assets/gra/font/OpenDyslexic3-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="optionsPanel" type="Panel"]
+pause_mode = 2
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -200.0
+margin_right = 400.0
+margin_bottom = 200.0
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="options_page" type="Control" parent="."]
+margin_right = 800.0
+margin_bottom = 400.0
+
+[node name="save_options" type="Button" parent="options_page"]
+margin_left = 212.0
+margin_top = 357.0
+margin_right = 363.0
+margin_bottom = 395.0
+focus_neighbour_left = NodePath("../close_options")
+focus_neighbour_top = NodePath("../../btn_Inputs")
+focus_neighbour_right = NodePath("../close_options")
+focus_neighbour_bottom = NodePath("../HBoxContainer/buttons/windowMode")
+text = "Save & Apply"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="close_options" type="Button" parent="options_page"]
+margin_left = 495.0
+margin_top = 357.0
+margin_right = 590.0
+margin_bottom = 395.0
+focus_neighbour_left = NodePath("../save_options")
+focus_neighbour_top = NodePath("../../btn_Inputs")
+focus_neighbour_right = NodePath("../save_options")
+focus_neighbour_bottom = NodePath("../HBoxContainer/buttons/windowMode")
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="options_page"]
+margin_left = 200.0
+margin_top = 100.0
+margin_right = 600.0
+margin_bottom = 300.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labels" type="VBoxContainer" parent="options_page/HBoxContainer"]
+margin_left = 74.0
+margin_right = 203.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="windowMode" type="Label" parent="options_page/HBoxContainer/labels"]
+margin_top = 66.0
+margin_right = 129.0
+margin_bottom = 98.0
+text = "Window Mode"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vsync" type="Label" parent="options_page/HBoxContainer/labels"]
+margin_top = 102.0
+margin_right = 129.0
+margin_bottom = 134.0
+text = "Vsync"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buttons" type="VBoxContainer" parent="options_page/HBoxContainer"]
+margin_left = 207.0
+margin_right = 325.0
+margin_bottom = 200.0
+alignment = 1
+
+[node name="windowMode" type="OptionButton" parent="options_page/HBoxContainer/buttons"]
+margin_top = 60.0
+margin_right = 118.0
+margin_bottom = 98.0
+focus_neighbour_top = NodePath("../../../save_options")
+focus_neighbour_bottom = NodePath("../vsync")
+text = "Fullscreen"
+items = [ "Fullscreen", null, false, 0, null, "Windowed", null, false, 1, null ]
+selected = 0
+
+[node name="vsync" type="OptionButton" parent="options_page/HBoxContainer/buttons"]
+margin_top = 102.0
+margin_right = 118.0
+margin_bottom = 140.0
+focus_neighbour_top = NodePath("../windowMode")
+focus_neighbour_bottom = NodePath("../../../save_options")
+text = "Yes"
+items = [ "Yes", null, false, 0, null, "No", null, false, 1, null ]
+selected = 0
+
+[node name="btn_Inputs" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -40.6841
+margin_top = -140.504
+margin_right = 87.3159
+margin_bottom = -102.504
+focus_neighbour_top = NodePath("../options_page/HBoxContainer/buttons/vsync")
+focus_neighbour_bottom = NodePath("../options_page/save_options")
+text = "Rebind Keys"
+
+[node name="Input_page" type="Control" parent="."]
+visible = false
+margin_right = 800.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="input_close" type="Button" parent="Input_page"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -47.5
+margin_top = -43.0
+margin_right = 47.5
+margin_bottom = -4.99997
+focus_neighbour_top = NodePath("../VBoxContainer/controls/keyboard/move_right")
+focus_neighbour_bottom = NodePath("../VBoxContainer/controls/keyboard/jump")
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Input_page"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -150.0
+margin_right = 300.0
+margin_bottom = 150.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labels" type="HBoxContainer" parent="Input_page/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 32.0
+
+[node name="actions" type="Label" parent="Input_page/VBoxContainer/labels"]
+margin_right = 197.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Actions"
+align = 1
+
+[node name="keyboard" type="Label" parent="Input_page/VBoxContainer/labels"]
+margin_left = 201.0
+margin_right = 398.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Keyboard"
+align = 1
+
+[node name="gamepad" type="Label" parent="Input_page/VBoxContainer/labels"]
+margin_left = 402.0
+margin_right = 600.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Gamepad"
+align = 1
+
+[node name="controls" type="HBoxContainer" parent="Input_page/VBoxContainer"]
+margin_top = 36.0
+margin_right = 600.0
+margin_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="actions" type="VBoxContainer" parent="Input_page/VBoxContainer/controls"]
+margin_right = 197.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="jump" type="Label" parent="Input_page/VBoxContainer/controls/actions"]
+margin_right = 197.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Jump"
+align = 1
+valign = 1
+
+[node name="Float" type="Label" parent="Input_page/VBoxContainer/controls/actions"]
+margin_top = 53.0
+margin_right = 197.0
+margin_bottom = 103.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Float"
+align = 1
+valign = 1
+
+[node name="Slowtime" type="Label" parent="Input_page/VBoxContainer/controls/actions"]
+margin_top = 107.0
+margin_right = 197.0
+margin_bottom = 156.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Slow Time"
+align = 1
+valign = 1
+
+[node name="move_left" type="Label" parent="Input_page/VBoxContainer/controls/actions"]
+margin_top = 160.0
+margin_right = 197.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Move Left"
+align = 1
+valign = 1
+
+[node name="move_right" type="Label" parent="Input_page/VBoxContainer/controls/actions"]
+margin_top = 214.0
+margin_right = 197.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Move Right"
+align = 1
+valign = 1
+
+[node name="keyboard" type="VBoxContainer" parent="Input_page/VBoxContainer/controls"]
+pause_mode = 2
+margin_left = 201.0
+margin_right = 398.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="jump" type="Button" parent="Input_page/VBoxContainer/controls/keyboard"]
+margin_right = 197.0
+margin_bottom = 49.0
+focus_neighbour_top = NodePath("../../../../input_close")
+focus_neighbour_bottom = NodePath("../floating")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Space"
+
+[node name="floating" type="Button" parent="Input_page/VBoxContainer/controls/keyboard"]
+margin_top = 53.0
+margin_right = 197.0
+margin_bottom = 103.0
+focus_neighbour_top = NodePath("../jump")
+focus_neighbour_bottom = NodePath("../time_slow")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "J"
+
+[node name="time_slow" type="Button" parent="Input_page/VBoxContainer/controls/keyboard"]
+margin_top = 107.0
+margin_right = 197.0
+margin_bottom = 156.0
+focus_neighbour_top = NodePath("../floating")
+focus_neighbour_bottom = NodePath("../move_left")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "L"
+
+[node name="move_left" type="Button" parent="Input_page/VBoxContainer/controls/keyboard"]
+margin_top = 160.0
+margin_right = 197.0
+margin_bottom = 210.0
+focus_neighbour_top = NodePath("../time_slow")
+focus_neighbour_bottom = NodePath("../move_right")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "A"
+
+[node name="move_right" type="Button" parent="Input_page/VBoxContainer/controls/keyboard"]
+margin_top = 214.0
+margin_right = 197.0
+margin_bottom = 264.0
+focus_neighbour_top = NodePath("../move_left")
+focus_neighbour_bottom = NodePath("../../../../input_close")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "D"
+
+[node name="gamepad" type="VBoxContainer" parent="Input_page/VBoxContainer/controls"]
+pause_mode = 2
+margin_left = 402.0
+margin_right = 600.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="jump" type="Button" parent="Input_page/VBoxContainer/controls/gamepad"]
+margin_right = 198.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "X"
+
+[node name="floating" type="Button" parent="Input_page/VBoxContainer/controls/gamepad"]
+margin_top = 53.0
+margin_right = 198.0
+margin_bottom = 103.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "R1"
+
+[node name="time_slow" type="Button" parent="Input_page/VBoxContainer/controls/gamepad"]
+margin_top = 107.0
+margin_right = 198.0
+margin_bottom = 156.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "L1"
+
+[node name="label_left" type="Label" parent="Input_page/VBoxContainer/controls/gamepad"]
+margin_top = 160.0
+margin_right = 198.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Dpad-left/left stick"
+align = 1
+valign = 1
+
+[node name="label_right" type="Label" parent="Input_page/VBoxContainer/controls/gamepad"]
+margin_top = 214.0
+margin_right = 198.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Dpad-right/left stick"
+align = 1
+valign = 1
+
+[node name="rebind_popup" type="AcceptDialog" parent="Input_page"]
+margin_left = 311.5
+margin_top = 135.0
+margin_right = 586.5
+margin_bottom = 193.0
+popup_exclusive = true
+window_title = "[insert action name]"
+dialog_text = "Press a new button to bind to this action"
+
+[node name="UI_timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="pressed" from="Input_page/VBoxContainer/controls/keyboard/jump" to="." method="_on_jump_pressed"]
+[connection signal="pressed" from="Input_page/VBoxContainer/controls/keyboard/floating" to="." method="_on_floating_pressed"]
+[connection signal="pressed" from="Input_page/VBoxContainer/controls/keyboard/time_slow" to="." method="_on_time_slow_pressed"]
+[connection signal="pressed" from="Input_page/VBoxContainer/controls/keyboard/move_left" to="." method="_on_move_left_pressed"]
+[connection signal="pressed" from="Input_page/VBoxContainer/controls/keyboard/move_right" to="." method="_on_move_right_pressed"]
+[connection signal="timeout" from="UI_timer" to="." method="_on_UI_timer_timeout"]
