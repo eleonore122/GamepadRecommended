@@ -9,7 +9,7 @@ onready var jump_label = $tut_labels/intro2
 onready var float_label = $tut_labels/large_gap2
 onready var time_label = $tut_labels/time_slow3
 
-var preceeding_levels = 0
+var preceeding_levels = 1
 
 var player
 
@@ -62,6 +62,7 @@ func _ready():
 	if SaveScript.started_levels.size() <= preceeding_levels: #check if completed levels needs to be overwritten
 		SaveScript.started_levels = {"tutorial" : "res://assets/gra/level_screencaps/level_1.png"}
 	SaveScript.save_game("tutorial")
+	LoadManager.queue_scene(next_level_scene)
 
 func respawn_player():
 	player.queue_free()
@@ -91,13 +92,13 @@ func _on_win_timer_timeout():
 		"tutorial" : "res://assets/gra/level_screencaps/tut_level.png",
 		"level one" : "res://assets/gra/level_screencaps/level_1.png"
 			}
+	SaveScript.save_game("level one")
 
 
 func load_next_level():
-	LoadManager.load_scene(next_level_scene)
+	LoadManager.get_queue_scene(next_level_scene)
 	
 func back_to_menu():
-	SaveScript.save_game("level one")
 	LoadManager.load_scene("res://assets/scenes/UI/MainMenu.tscn")
 
 func _input(event: InputEvent):

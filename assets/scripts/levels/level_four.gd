@@ -13,7 +13,7 @@ var time_elapsed = 0.00
 
 var player_scene : PackedScene
 var next_level_scene = "res://assets/scenes/levels/level_five.tscn" #change to level 5 after demo is released
-var preceeding_levels = 4
+var preceeding_levels = 5
 
 var saw_spawn = Vector2(-100, 0)
 
@@ -34,6 +34,7 @@ func _ready():
 	player_scene = load("res://assets/scenes/player/player_scene.tscn") as PackedScene
 	player = $player
 	SaveScript.save_game("level four")
+	LoadManager.queue_scene(next_level_scene)
 
 func _physics_process(delta):
 	time_elapsed += delta
@@ -74,13 +75,13 @@ func _on_win_timer_timeout():
 		"level four" : "res://assets/gra/level_screencaps/level_4.png",
 		"level five" : "res://assets/gra/level_screencaps/level_5.PNG"
 		}
+	SaveScript.save_game("level five")
 
 
 func load_next_level():
-	LoadManager.load_scene(next_level_scene)
+	LoadManager.get_queue_scene(next_level_scene)
 
 func back_to_menu():
-	SaveScript.save_game("tutorial")
 	LoadManager.load_scene("res://assets/scenes/UI/MainMenu.tscn")
 
 

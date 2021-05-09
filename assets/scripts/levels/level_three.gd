@@ -14,7 +14,7 @@ var time_elapsed = 0.00
 
 var player_scene : PackedScene
 var next_level_scene = "res://assets/scenes/levels/level_four.tscn"
-var preceeding_levels = 3
+var preceeding_levels = 4
 
 # Declare member variables here. Examples:
 var camera_limits = {
@@ -33,6 +33,7 @@ func _ready():
 	player_scene = load("res://assets/scenes/player/player_scene.tscn") as PackedScene
 	player = $player
 	SaveScript.save_game("level three")
+	LoadManager.queue_scene(next_level_scene)
 
 func _physics_process(delta):
 	time_elapsed += delta
@@ -67,13 +68,13 @@ func _on_win_timer_timeout():
 			"level three" : "res://assets/gra/level_screencaps/level_3.png",
 			"level four" : "res://assets/gra/level_screencaps/level_4.png"
 			}
+		SaveScript.save_game("level four")
 
 
 func load_next_level():
-	LoadManager.load_scene(next_level_scene)
+	LoadManager.get_queue_scene(next_level_scene)
 
 func back_to_menu():
-	SaveScript.save_game("level four")
 	LoadManager.load_scene("res://assets/scenes/UI/MainMenu.tscn")
 
 

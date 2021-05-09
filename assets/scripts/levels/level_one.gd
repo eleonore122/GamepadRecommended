@@ -14,7 +14,7 @@ var jokeSpotted = false
 
 var player_scene : PackedScene
 var next_level_scene = "res://assets/scenes/levels/level_two.tscn"
-var preceeding_levels = 1
+var preceeding_levels = 2
 
 # Declare member variables here. Examples:
 var camera_limits = {
@@ -32,6 +32,7 @@ func _ready():
 	
 	player = $player
 	SaveScript.save_game("level one")
+	LoadManager.queue_scene(next_level_scene)
 
 func _physics_process(delta):
 	time_elapsed += delta
@@ -70,13 +71,13 @@ func _on_win_timer_timeout():
 		"level one" : "res://assets/gra/level_screencaps/level_1.png",
 		"level two" : "res://assets/gra/level_screencaps/level_2.png"
 		}
+		SaveScript.save_game("level two")
 		
 
 func load_next_level():
-	LoadManager.load_scene(next_level_scene)
+	LoadManager.get_queue_scene(next_level_scene)
 
 func back_to_menu():
-	SaveScript.save_game("level two")
 	LoadManager.load_scene("res://assets/scenes/UI/MainMenu.tscn")
 
 

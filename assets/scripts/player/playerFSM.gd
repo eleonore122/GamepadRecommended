@@ -57,7 +57,7 @@ func _ready():
 	call_deferred("set_state", states.idle)
 
 func state_logic(delta):
-	parent.get_move_input()
+	parent.call_deferred("get_move_input")
 	if !is_floating:
 		parent.apply_gravity(delta) 
 	parent.apply_movement()

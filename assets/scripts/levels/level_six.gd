@@ -14,7 +14,7 @@ var time_elapsed = 0.00
 var player_scene : PackedScene
 var next_level_scene = "res://assets/scenes/levels/level_seven.tscn" #next level to load
 
-var preceeding_levels = 6
+var preceeding_levels = 7
 var one_way_moved = false
 var split_label_seen = false
 var in_joke_gap = false
@@ -32,6 +32,7 @@ func _ready():
 	player_scene = load("res://assets/scenes/player/player_scene.tscn") as PackedScene
 	player = $player
 	SaveScript.save_game("level_six") #set to current level
+	LoadManager.queue_scene(next_level_scene)
 
 #records how long you've played a level
 func _physics_process(delta):
@@ -84,12 +85,12 @@ func _on_win_timer_timeout():
 		"level five" : "res://assets/gra/level_screencaps/level_5.PNG",
 		"level six" : "res://assets/gra/level_screencaps/level_6.png",
 		"level seven" : "res://assets/gra/level_screencaps/level_7.png"} #set to completed levels
-
+	SaveScript.save_game("level six")
 	
 
 #called from the win panel
 func load_next_level():
-	LoadManager.load_scene(next_level_scene)
+	LoadManager.get_queue_scene(next_level_scene)
 
 #called from the win panel
 func back_to_menu():

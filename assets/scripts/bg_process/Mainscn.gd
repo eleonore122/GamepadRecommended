@@ -6,6 +6,30 @@ var thread = null
 
 onready var progress = $CanvasLayer/Progress
 
+var queue
+
+func _ready():
+	queue = preload("res://assets/scripts/bg_process/resource_queue.gd").new()
+	queue.start()
+
+func queue_scene(path):
+	queue.queue_resource(path)
+
+func get_queue_scene(path):
+	if queue.is_ready(path):
+		start_queue_scene(queue.get_resource(path))
+
+func start_queue_scene(resource):
+	var new_scene = resource.instance()
+	# Free current scene.
+	get_tree().current_scene.queue_free()
+	get_tree().paused = false
+	get_tree().current_scene = null
+	# Add new one to root.
+	get_tree().root.add_child(new_scene)
+	# Set as current scene.
+	get_tree().current_scene = new_scene
+	get_tree().paused = false
 
 func _thread_load(path):
 	var ril = ResourceLoader.load_interactive(path)

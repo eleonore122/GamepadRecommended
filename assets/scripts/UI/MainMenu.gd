@@ -100,6 +100,7 @@ func open_player_1_select():
 		SaveScript.load_save()
 		open_level_select()
 	if last_pressed == btn_NewGame:
+		SaveScript.load_save()
 		LoadManager.load_scene(tutorial_path)
 	if last_pressed == btn_continue:
 		SaveScript.load_save()

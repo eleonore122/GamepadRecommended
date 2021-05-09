@@ -37,12 +37,12 @@ var is_dashing = false
 var time_slowed = false
 
 var velocity = Vector2()
+var keyboard_input = true
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	dangers = get_parent().get_node("dangers")
 	scene = get_parent()
 	pauseMenu = load("res://assets/scenes/UI/pauseMenu.tscn")
@@ -72,9 +72,6 @@ func _physics_process(_delta):
 		death_collision(collision)
 	elif collision_ceiling && !is_dead:
 		death_collision(collision_ceiling)
-		
-	if !coyote_timer.is_stopped() && Input.is_action_just_pressed("jump"):
-		jump()
 	
 	if Input.is_action_pressed("floating") && float_bar.value > 0 && !is_on_floor():
 		if Engine.time_scale == 0.5:
@@ -99,13 +96,12 @@ func _physics_process(_delta):
 		Engine.set_time_scale(1)
 	if Input.is_action_just_pressed("pause") && can_pause:
 		pause_menu()
-	update_facing()
+
 
 func pause_menu():
 	var pause_panel = pauseMenu.instance()
 	can_pause = false
 	$pause_layer.add_child(pause_panel)
-
 
 
 func apply_gravity(delta):
@@ -139,28 +135,26 @@ func apply_movement():
 func get_move_input():
 	#gets running inputs. has analog stick support through get_action_strength
 	if !is_dashing:
-		var move_direction = -float(Input.get_action_strength("move_left")) + float(Input.get_action_strength("move_right"))
+		var move_direction = -float(Input.is_action_pressed("move_left")) + float(Input.is_action_pressed("move_right"))
 		velocity.x = move_speed * move_direction
 	else:
 		var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
 		velocity.x = dash_speed * move_direction
-		
+	update_facing()
 
 func update_facing():
-	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
+	var move_direction
+	move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
 	if move_direction == -1:
 		$AnimatedSprite.flip_h = false
 	elif move_direction == 1:
 		$AnimatedSprite.flip_h = true
-
-
-
-
 	
 func jump():
 	if is_on_floor() || !coyote_timer.is_stopped():
 		velocity.y = max_jump_velocity
 		is_jumping = true
+
 
 func floating():
 	is_dashing = true
@@ -169,18 +163,18 @@ func floating():
 func death_collision(node):
 	var collider = node.get_collider()
 	if collider == dangers:
-		is_dead = true
-		death()
+		if velocity.y != 0:
+			is_dead = true
+			death()
 
 func death():
-	is_dead = false
 	FSM_node.is_floating = false
 	scene.call_deferred("respawn_player")
 
 
+
 func _on_KinematicBody2D_grounded_updated():
 	if !is_on_floor() && !is_jumping:
-		velocity.y = 0
 		coyote_timer.start()
 		FSM_node.is_floating = true
 
@@ -222,3 +216,4 @@ func _on_danger_detect_body_entered(body):
 
 func _on_pause_cd_timeout():
 	can_pause = true
+
